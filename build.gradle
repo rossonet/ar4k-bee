@@ -13,8 +13,8 @@ buildscript {
   }
 }
 
-description = "Template progetto per libreria EdgeAgentAr4k"
-group = 'org.ar4k.agent.template'
+description = "PXE configuration dispatcher"
+group = 'org.ar4k.agent'
 version = '0.0.5'
 
 ext {
@@ -63,7 +63,7 @@ eclipse {
 }
 
 docker {
-  name "ar4k/agent-template:latest"
+  name "ar4k/ar4k-bee:latest"
   dockerfile file('Dockerfile.gradle')
   files "$buildDir/libs/${project.name}-${version}-all.jar"
 }
@@ -197,9 +197,9 @@ publishing {
           }
         }
         scm {
-          connection = 'scm:git:git://github.com/rossonet/TemplateEdgeAgentAr4k.git'
-          developerConnection = 'scm:git:ssh://github.com:rossonet/TemplateEdgeAgentAr4k.git'
-          url = 'https://github.com/rossonet/TemplateEdgeAgentAr4k/tree/master'
+          connection = 'scm:git:git://github.com/rossonet/ar4k-bee.git'
+          developerConnection = 'scm:git:ssh://github.com:rossonet/ar4k-bee.git'
+          url = 'https://github.com/rossonet/ar4k-bee/tree/master'
         }
       }
     }
