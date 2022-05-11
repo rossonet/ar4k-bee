@@ -8,9 +8,19 @@ on:
 jobs:
   build:
 
-    runs-on: self-hosted, Linux, ARM64
+    runs-on: ubuntu-latest
 
     steps:
+    - uses: uraimo/run-on-arch-action@v2
+        name: Run commands
+        id: runcmd
+        with:
+          arch: aarch64
+          distro: ubuntu18.04
+          githubToken: ${{ github.token }}
+          run: |
+            uname -a
+            echo ::set-output name=uname::$(uname -a)
     - name: Checkout
       uses: actions/checkout@v1
     - name: Set up JDK 1.8
