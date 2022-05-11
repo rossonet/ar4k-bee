@@ -63,7 +63,7 @@ eclipse {
 }
 
 docker {
-  name "ar4k/ar4k-bee:latest"
+  name "rossonet/ar4k-bee:latest"
   dockerfile file('Dockerfile.gradle')
   files "$buildDir/libs/${project.name}-${version}-all.jar"
 }
