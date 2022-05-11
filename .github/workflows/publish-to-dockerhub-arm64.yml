@@ -21,6 +21,8 @@ jobs:
         githubToken: ${{ github.token }}
         run: |
           uname -a
+          apt update
+          apt install -y openjdk-8-jre
           echo "Build and test with Gradle"
           cp -f Dockerfile.gradle.arm64 Dockerfile.gradle && ./gradlew buildDocker -Dorg.gradle.jvmargs="-Xms512M -Xmx4G" -Dorg.gradle.daemon=false
           echo "Log into Docker Hub registry"
