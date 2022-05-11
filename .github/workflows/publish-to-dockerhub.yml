@@ -31,4 +31,4 @@ jobs:
     - name: Log into Docker Hub registry
       run: echo "${{ secrets.DHUB_TOKEN }}" | docker login -u rossonet --password-stdin
     - name: Push image on Docker Hub
-      docker push rossonet/ar4k-bee:latest
+      run: docker push rossonet/ar4k-bee:latest
