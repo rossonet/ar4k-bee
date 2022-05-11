@@ -3,7 +3,7 @@ name: Test on master branch with Gradle
 on:
   push:
     branches:
-    - master
+    - '**'
 
 jobs:
   build:
