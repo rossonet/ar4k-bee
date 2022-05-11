@@ -13,15 +13,15 @@ jobs:
     steps:
     - uses: actions/checkout@v2.1.0
     - uses: uraimo/run-on-arch-action@v2
-        name: Build artifact
-        id: runcmd
-        with:
-          arch: aarch64
-          distro: ubuntu18.04
-          githubToken: ${{ github.token }}
-          run: |
-            uname -a
-            echo ::set-output name=uname::$(uname -a)
+      name: Build artifact
+      id: runcmd
+      with:
+        arch: aarch64
+        distro: ubuntu18.04
+        githubToken: ${{ github.token }}
+        run: |
+          uname -a
+          echo ::set-output name=uname::$(uname -a)
     - name: Clone sub repos
       env:
         GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no"
