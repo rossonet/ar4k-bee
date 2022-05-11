@@ -1,4 +1,4 @@
-name: [arm64] Build and publish docker image to DockerHub
+name: Build on arm64 and publish docker image to DockerHub
 
 on:
   push:
