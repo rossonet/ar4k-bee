@@ -1,5 +1,5 @@
 FROM rockylinux:latest
-RUN yum install -y java-1.8.0-openjdk wget dhcp-server tftp-server tftp bind bind-utils httpd mod_ssl nmap procps-ng tcpdump openssh-clients net-tools && yum update -y && yum clean all
+RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y openjdk-8-jre wget isc-dhcp-server tftpd bind9 apache2 nmap tcpdump && apt-get clean && rm -rf /var/lib/apt/lists/*
 ENTRYPOINT ["java"]
 CMD ["-XX:+UnlockExperimentalVMOptions","-Djava.net.preferIPv4Stack=true","-XX:+UseCGroupMemoryLimitForHeap","-XshowSettings:vm","-Djava.security.egd=file:/dev/./urandom","-jar","/agent.jar"]
 COPY *-all.jar agent.jar
