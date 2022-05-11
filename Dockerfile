@@ -3,7 +3,7 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y openjdk-8-jdk
 COPY . /ar4kAgent
 WORKDIR /ar4kAgent
 RUN chmod +x gradlew
-RUN ./gradlew clean shadowJar -Dorg.gradle.jvmargs="-Xms512M -Xmx4G" --info
+RUN ./gradlew clean shadowJar
 
 FROM ubuntu:20.04
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y openjdk-8-jre wget isc-dhcp-server tftpd bind9 apache2 nmap tcpdump && apt-get clean && rm -rf /var/lib/apt/lists/*
