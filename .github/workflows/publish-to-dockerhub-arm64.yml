@@ -1,4 +1,4 @@
-name: Build and publish docker image to DockerHub
+name: [arm64] Build and publish docker image to DockerHub
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest, self-hosted, Linux, ARM64
+    runs-on: self-hosted, Linux, ARM64
 
     steps:
     - name: Checkout
