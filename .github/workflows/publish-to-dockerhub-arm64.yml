@@ -30,7 +30,7 @@ jobs:
         git submodule init
         git submodule update
     - name: Print env
-      run: echo $GITHUB_ACTOR
+      run: echo $GITHUB_ACTOR && uname -a
     - name: Build and test with Gradle
       run: cp -f Dockerfile.gradle.arm64 Dockerfile.gradle && ./gradlew buildDocker -Dorg.gradle.jvmargs="-Xms512M -Xmx4G" -Dorg.gradle.daemon=false
     - name: Log into Docker Hub registry
