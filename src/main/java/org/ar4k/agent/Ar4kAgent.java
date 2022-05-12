@@ -18,6 +18,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import org.ar4k.bee.daemon.DaemonManager;
+
 /**
  * Classe main per avvio Agente Ar4k
  *
@@ -57,6 +59,8 @@ public class Ar4kAgent {
 		appManager = new AppManagerImplementation();
 		System.out.println("agent started");
 		System.out.println(appManager.toString());
+		System.out.println("started " + DaemonManager.getInstance().toString());
+		DaemonManager.getInstance().reloadConfiguration();
 		while (running) {
 			try {
 				writeStringToFile(appManager.getJsonStatus().toString(identLevelStatusFile),

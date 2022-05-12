@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
@@ -19,7 +20,7 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.ar4k.service.ManagedServices;
+import org.ar4k.bee.service.ConfigurationRefresh;
 import org.json.JSONObject;
 
 public class AppManagerImplementation implements AppManager {
@@ -62,7 +63,7 @@ public class AppManagerImplementation implements AppManager {
 
 	private Pattern patternVariableInConfiguration = null;
 
-	private final Set<ManagedServices> services = new HashSet<>();
+	private final Set<ConfigurationRefresh> services = new HashSet<>();
 
 	private MessageDigest shaDigest = null;
 
@@ -111,6 +112,7 @@ public class AppManagerImplementation implements AppManager {
 			}
 		}
 		if (configChanged) {
+			logger.info("new configuration found");
 			reload();
 		}
 	}
@@ -138,6 +140,7 @@ public class AppManagerImplementation implements AppManager {
 				logger.severe("error in hash alghoritm " + e.getMessage());
 			}
 			if (!configHashs.containsKey(key) || !configHashs.get(key).equals(shaChecksum)) {
+				configHashs.put(key, shaChecksum);
 				configChanged = true;
 				try {
 					final String data = new String(Files.readAllBytes(fileInside.toPath()), StandardCharsets.UTF_8);
@@ -152,7 +155,7 @@ public class AppManagerImplementation implements AppManager {
 
 	@Override
 	public String getCacheDirectoryPath() {
-		return cacheDirectoryPath;
+		return Paths.get(cacheDirectoryPath).toAbsolutePath().toString();
 	}
 
 	@Override
@@ -162,7 +165,7 @@ public class AppManagerImplementation implements AppManager {
 
 	@Override
 	public String getConfigDirectoryPath() {
-		return configDirectoryPath;
+		return Paths.get(configDirectoryPath).toAbsolutePath().toString();
 	}
 
 	@Override
@@ -222,7 +225,7 @@ public class AppManagerImplementation implements AppManager {
 
 	@Override
 	public String getStatusFilePath() {
-		return this.statusFilePath;
+		return Paths.get(statusFilePath).toAbsolutePath().toString();
 	}
 
 	@Override
@@ -251,7 +254,8 @@ public class AppManagerImplementation implements AppManager {
 		}
 	}
 
-	public void registerService(final ManagedServices service) {
+	@Override
+	public void registerService(final ConfigurationRefresh service) {
 		services.add(service);
 	}
 
@@ -261,13 +265,15 @@ public class AppManagerImplementation implements AppManager {
 	}
 
 	private void reload() {
-		for (final ManagedServices s : services) {
+		for (final ConfigurationRefresh s : services) {
 			s.reloadConfiguration();
+			logger.info("reload called on\n" + s.toString());
 		}
-
+		logger.info("all services reloaded");
 	}
 
-	public void removeService(final ManagedServices service) {
+	@Override
+	public void removeService(final ConfigurationRefresh service) {
 		services.remove(service);
 	}
 
@@ -370,7 +376,7 @@ public class AppManagerImplementation implements AppManager {
 		builder.append("AppManagerImplementation [");
 		if (cacheDirectoryPath != null) {
 			builder.append("cacheDirectoryPath=");
-			builder.append(cacheDirectoryPath);
+			builder.append(Paths.get(cacheDirectoryPath).toAbsolutePath().toString());
 			builder.append(", ");
 		}
 		if (cacheDirectoryPathEnviroment != null) {
@@ -380,7 +386,7 @@ public class AppManagerImplementation implements AppManager {
 		}
 		if (configDirectoryPath != null) {
 			builder.append("configDirectoryPath=");
-			builder.append(configDirectoryPath);
+			builder.append(Paths.get(configDirectoryPath).toAbsolutePath().toString());
 			builder.append(", ");
 		}
 		if (configDirectoryPathEnviroment != null) {
@@ -420,7 +426,7 @@ public class AppManagerImplementation implements AppManager {
 		}
 		if (statusFilePath != null) {
 			builder.append("statusFilePath=");
-			builder.append(statusFilePath);
+			builder.append(Paths.get(statusFilePath).toAbsolutePath().toString());
 			builder.append(", ");
 		}
 		if (statusFilePathEnviroment != null) {
