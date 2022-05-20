@@ -1,0 +1,37 @@
+Internet Systems Consortium DHCP Server 4.4.2b1
+Copyright 2004-2019 Internet Systems Consortium.
+All rights reserved.
+For info, please visit https://www.isc.org/software/dhcp/
+unable to create icmp socket: Operation not permitted
+ldap_gssapi_principal is not set,GSSAPI Authentication for LDAP will not be used
+Not searching LDAP since ldap-server, ldap-port and ldap-base-dn were not specified in the config file
+Config file: /home/andrea/git/ar4k-bee/cache/dhcpd/dhcpd.conf
+Database file: /home/andrea/git/ar4k-bee/cache/dhcpd/dhcpd.leases
+PID file: /home/andrea/git/ar4k-bee/cache/dhcpd/dhcpd.pid
+Source compiled to use binary-leases
+Wrote 0 leases to leases file.
+
+No subnet declaration for vetha291116 (no IPv4 addresses).
+** Ignoring requests on vetha291116.  If this is not what
+   you want, please write a subnet declaration
+   in your dhcpd.conf file for the network segment
+   to which interface vetha291116 is attached. **
+
+
+No subnet declaration for enp7s0.2 (192.168.90.12).
+** Ignoring requests on enp7s0.2.  If this is not what
+   you want, please write a subnet declaration
+   in your dhcpd.conf file for the network segment
+   to which interface enp7s0.2 is attached. **
+
+Open a socket for LPF: Operation not permitted
+
+This version of ISC DHCP is based on the release available
+on ftp.isc.org. Features have been added and other changes
+have been made to the base software release in order to make
+it work better with this distribution.
+
+Please report issues with this software via: 
+https://bugzilla.redhat.com/
+
+exiting.

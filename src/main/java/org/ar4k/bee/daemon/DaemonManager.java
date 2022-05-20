@@ -13,12 +13,21 @@ import org.ar4k.bee.utils.LogUtils;
 
 public class DaemonManager implements ConfigurationRefresh {
 
-	private static final DaemonManager INSTANCE = new DaemonManager();
+	private static DaemonManager INSTANCE = null;
 
 	private static final Logger logger = Logger.getLogger(DaemonManager.class.getName());
 
+	private static boolean serviceMode = true;
+
 	public static DaemonManager getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new DaemonManager();
+		}
 		return INSTANCE;
+	}
+
+	public static void setNoServiceMode(final boolean reloadServicesActive) {
+		serviceMode = !reloadServicesActive;
 	}
 
 	private final DhcpdManager dhcp;
@@ -54,27 +63,28 @@ public class DaemonManager implements ConfigurationRefresh {
 	}
 
 	private void reloadAllServices() {
-		try {
-			this.dns.reload();
-		} catch (final IOException e) {
-			logger.severe(LogUtils.stackTraceToString(e));
+		if (serviceMode) {
+			try {
+				this.dns.reload();
+			} catch (final IOException e) {
+				logger.severe(LogUtils.stackTraceToString(e));
+			}
+			try {
+				this.dhcp.reload();
+			} catch (final IOException e) {
+				logger.severe(LogUtils.stackTraceToString(e));
+			}
+			try {
+				this.httpd.reload();
+			} catch (final IOException e) {
+				logger.severe(LogUtils.stackTraceToString(e));
+			}
+			try {
+				this.tftp.reload();
+			} catch (final IOException e) {
+				logger.severe(LogUtils.stackTraceToString(e));
+			}
 		}
-		try {
-			this.dhcp.reload();
-		} catch (final IOException e) {
-			logger.severe(LogUtils.stackTraceToString(e));
-		}
-		try {
-			this.httpd.reload();
-		} catch (final IOException e) {
-			logger.severe(LogUtils.stackTraceToString(e));
-		}
-		try {
-			this.tftp.reload();
-		} catch (final IOException e) {
-			logger.severe(LogUtils.stackTraceToString(e));
-		}
-
 	}
 
 	@Override

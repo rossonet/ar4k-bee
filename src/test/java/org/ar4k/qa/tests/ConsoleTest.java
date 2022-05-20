@@ -21,6 +21,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import org.ar4k.agent.Ar4kAgent;
+import org.ar4k.bee.daemon.DaemonManager;
 import org.json.JSONObject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -103,6 +104,7 @@ public class ConsoleTest {
 		stopAfterSeconds(65);
 		setVariableAfterSeconds(5, tempDirectory);
 		printConfigAfterSeconds(20);
+		DaemonManager.setNoServiceMode(true);
 		Ar4kAgent.runApp();
 		assertEquals(TEST1_VALUE, checkData1.getString(DATA1));
 		assertEquals(TEST2_VALUE, checkData2.getString(DATA2));
