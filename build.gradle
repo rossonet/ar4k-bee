@@ -47,7 +47,8 @@ apply plugin: 'maven-publish'
 dependencies {
   api group: 'org.json', name: 'json', version: '20211205'
   api project(':ar4k-bee-api')
-  api 'org.jeasy:easy-rules:4.1.0'  
+  api 'org.jeasy:easy-rules:4.1.0'
+  implementation 'com.jcraft:jsch:0.1.55'
   testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
   testImplementation group: 'com.ginsberg', name: 'junit5-system-exit', version: '1.1.2'
   testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
