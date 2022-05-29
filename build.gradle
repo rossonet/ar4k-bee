@@ -46,6 +46,7 @@ apply plugin: 'maven-publish'
 
 dependencies {
   api group: 'org.json', name: 'json', version: '20211205'
+  api group: 'org.yaml', name: 'snakeyaml', version: '1.30'
   api project(':ar4k-bee-api')
   api 'org.jeasy:easy-rules:4.1.0'
   implementation 'com.jcraft:jsch:0.1.55'
